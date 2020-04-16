@@ -12,13 +12,18 @@ import java.util.TimeZone;
 @ApplicationScoped
 public class LogFactory {
 
+    private static final int URL_INDEX = 0;
+    private static final int DATE_VISITED_INDEX = 1;
+    private static final int USER_ID_INDEX = 2;
+    private static final int REGION_INDEX = 3;
+
     public LogModel create(String log) {
         String[] logArray = log.split(" ");
         return new LogModel()
-                .setUrl(logArray[0])
-                .setDateVisited(getDateVisited(logArray[1]))
-                .setUserId(logArray[2])
-                .setRegionEnum(RegionEnum.fromId(Integer.parseInt(logArray[3])));
+                .setUrl(logArray[URL_INDEX])
+                .setDateVisited(getDateVisited(logArray[DATE_VISITED_INDEX]))
+                .setUserId(logArray[USER_ID_INDEX])
+                .setRegionEnum(RegionEnum.fromId(Integer.parseInt(logArray[REGION_INDEX])));
     }
 
     private LocalDateTime getDateVisited(String timestamp) {

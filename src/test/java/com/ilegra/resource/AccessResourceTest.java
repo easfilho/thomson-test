@@ -3,7 +3,12 @@ package com.ilegra.resource;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.parsing.Parser;
 import org.hamcrest.CoreMatchers;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.core.MediaType;
@@ -15,17 +20,25 @@ import static org.hamcrest.Matchers.greaterThan;
 @QuarkusTestResource(H2DatabaseTestResource.class)
 public class AccessResourceTest {
 
+    private static final String URL_SAVE_LOG = "/laar/ingest";
+
+    @BeforeEach
+    void setUp() {
+        RestAssured.defaultParser = Parser.JSON;
+    }
+
     @Test
     public void shouldInsertLog() {
         given()
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(
-                    "{" +
-                        "\"log\": \"/pets/exotic/cats/10 1037825323957 5b019db5-b3d0-46d2-9963-437860af707f 1\"" +
-                    "}")
+                        "{" +
+                                "\"log\": \"/pets/exotic/cats/10 1037825323957 5b019db5-b3d0-46d2-9963-437860af707f 1\"" +
+                                "}"
+                )
                 .when()
-                .post("/laar/ingest")
+                .post(URL_SAVE_LOG)
                 .then()
                 .statusCode(201)
                 .body("id", CoreMatchers.is(greaterThan(0)))
@@ -33,5 +46,46 @@ public class AccessResourceTest {
                 .body("dataVisited", CoreMatchers.is("2002-11-20T18:48:43.957"))
                 .body("userId", CoreMatchers.is("5b019db5-b3d0-46d2-9963-437860af707f"))
                 .body("region", CoreMatchers.is("us-east-1"));
+    }
+
+    @Test
+    void shouldValidateBlankLog() {
+        String message = given()
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(
+                        "{" +
+                                "\"log\": null" +
+                                "}"
+                )
+                .when()
+                .post(URL_SAVE_LOG)
+                .then()
+                .statusCode(400)
+                .contentType(ContentType.JSON)
+                .extract()
+                .response()
+                .jsonPath()
+                .getString("parameterViolations.message[0]");
+
+        Assertions.assertEquals("Log can not be empty", message);
+    }
+
+    @Test
+    void shouldValidateNullBody() {
+        String message = given()
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .when()
+                .post(URL_SAVE_LOG)
+                .then()
+                .statusCode(400)
+                .contentType(ContentType.JSON)
+                .extract()
+                .response()
+                .jsonPath()
+                .getString("parameterViolations.message[0]");
+
+        Assertions.assertEquals("Body can not be null", message);
     }
 }
