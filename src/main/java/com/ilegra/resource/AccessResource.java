@@ -3,10 +3,11 @@ package com.ilegra.resource;
 import com.ilegra.factory.LogFactory;
 import com.ilegra.resource.dto.LogInputDto;
 import com.ilegra.service.LogService;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.opentracing.Traced;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -18,16 +19,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.stream.Stream;
 
-
 @Path("/laar")
+@ApplicationScoped
+@Traced
 public class AccessResource {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AccessResource.class);
     private final LogService logService;
     private final LogFactory logFactory;
-
-    @ConfigProperty(name = "env")
-    String env;
 
     public AccessResource(LogService logService, LogFactory logFactory) {
         this.logService = logService;
