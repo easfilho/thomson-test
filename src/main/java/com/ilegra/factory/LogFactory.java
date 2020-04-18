@@ -2,6 +2,7 @@ package com.ilegra.factory;
 
 import com.ilegra.enums.RegionEnum;
 import com.ilegra.model.LogModel;
+import com.ilegra.repository.LogEntity;
 import com.ilegra.resource.dto.LogOutputDto;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -17,7 +18,7 @@ public class LogFactory {
     private static final int USER_ID_INDEX = 2;
     private static final int REGION_INDEX = 3;
 
-    public LogModel create(String log) {
+    public LogModel createModel(String log) {
         String[] logArray = log.split(" ");
         return new LogModel()
                 .setUrl(logArray[URL_INDEX])
@@ -27,16 +28,25 @@ public class LogFactory {
     }
 
     private LocalDateTime getDateVisited(String timestamp) {
-        return LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(timestamp)),
+        return LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.parseLong(timestamp)),
                                        TimeZone.getDefault().toZoneId());
     }
 
-    public LogOutputDto create(LogModel logModel) {
+    public LogOutputDto createModel(LogModel logModel) {
         return new LogOutputDto()
                 .setId(logModel.getId())
                 .setUrl(logModel.getUrl())
                 .setDataVisited(logModel.getDateVisited())
                 .setUserId(logModel.getUserId())
                 .setRegion(logModel.getRegionEnum().getName());
+    }
+
+    public LogEntity createEntity(LogModel logModel) {
+        return new LogEntity()
+                .setId(logModel.getId())
+                .setUrl(logModel.getUrl())
+                .setDateVisited(logModel.getDateVisited())
+                .setUserId(logModel.getUserId())
+                .setRegionEnum(logModel.getRegionEnum());
     }
 }

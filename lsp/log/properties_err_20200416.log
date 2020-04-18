@@ -148,3 +148,13 @@ com.redhat.quarkus.ls.commons.BadLocationException: The character value, {33} of
 	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
 	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:177)
 
+abr 16, 2020 8:29:42 PM com.redhat.quarkus.ls.QuarkusLanguageServer initialize
+INFORMAÇÕES: Initializing Quarkus server 0.0.4-20191120-1547 with /snap/intellij-idea-community/221/jbr
+abr 16, 2020 8:49:23 PM com.redhat.quarkus.ls.QuarkusLanguageServer initialize
+INFORMAÇÕES: Initializing Quarkus server 0.0.4-20191120-1547 with /snap/intellij-idea-community/221/jbr
+abr 16, 2020 8:50:44 PM com.redhat.quarkus.ls.QuarkusLanguageServer initialize
+INFORMAÇÕES: Initializing Quarkus server 0.0.4-20191120-1547 with /snap/intellij-idea-community/221/jbr
+abr 16, 2020 8:50:45 PM com.redhat.quarkus.ls.QuarkusLanguageServer initialize
+INFORMAÇÕES: Initializing Quarkus server 0.0.4-20191120-1547 with /snap/intellij-idea-community/221/jbr
+abr 16, 2020 8:50:48 PM com.redhat.quarkus.ls.QuarkusLanguageServer initialize
+INFORMAÇÕES: Initializing Quarkus server 0.0.4-20191120-1547 with /snap/intellij-idea-community/221/jbr
