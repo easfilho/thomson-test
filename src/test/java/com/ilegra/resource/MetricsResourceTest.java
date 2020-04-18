@@ -34,7 +34,7 @@ class MetricsResourceTest {
     @BeforeEach
     @Transactional
     void setUp() {
-        if(!env.equals("tst")) {
+        if (!env.equals("tst")) {
             throw new RuntimeException("Wrong environment");
         }
         logRepository.deleteAll();
@@ -219,19 +219,6 @@ class MetricsResourceTest {
                         .setUserId("5b019db5-b3d0-46d2-9963-437860af707f")
                         .setRegionEnum(RegionEnum.US_WEST_2)
         );
-
-
-//        2020-04-17 12:06:15	US_EAST_1	/pets/exotic/cats/10	5b019db5-b3d0-46d2-9963-437860af707f
-//        2020-04-01 12:06:15	AP_SOUTH_1	/pets/exotic/parrots/10	5b019db5-b3d0-46d2-9963-437860af707f
-//        2020-04-12 12:06:15	US_EAST_1	/pets/exotic/dogs/10	5b019db5-b3d0-46d2-9963-437860af707f
-//        2020-04-17 12:06:15	US_EAST_1	/pets/exotic/turtles/10	5b019db5-b3d0-46d2-9963-437860af707f
-//        2020-04-17 12:06:15	US_WEST_2	/pets/exotic/cats/10	5b019db5-b3d0-46d2-9963-437860af707f
-//        2020-03-15 12:06:15	US_EAST_1	/pets/exotic/dogs/10	5b019db5-b3d0-46d2-9963-437860af707f
-//        2020-04-17 12:06:15	AP_SOUTH_1	/pets/exotic/cats/10	5b019db5-b3d0-46d2-9963-437860af707f
-//        2020-04-14 12:06:15	US_EAST_1	/pets/exotic/turtles/10	5b019db5-b3d0-46d2-9963-437860af707f
-//        2020-04-17 12:06:15	US_WEST_2	/pets/exotic/dogs/10	5b019db5-b3d0-46d2-9963-437860af707f
-//        2020-04-17 12:06:15	US_EAST_1	/pets/exotic/cats/10	5b019db5-b3d0-46d2-9963-437860af707f
-//        2020-04-17 12:06:15	AP_SOUTH_1	/pets/exotic/turtles/10	5b019db5-b3d0-46d2-9963-437860af707f
     }
 
 
