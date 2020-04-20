@@ -16,8 +16,8 @@ Como boas práticas DevOps
   - Documentação do Swagger
   - Logs
   - Ratreabilidade com Jaeger
-        Subir Jaeger Docker
   ```
+  Subir Jaeger Docker
             docker run -p 5775:5775/udp -p 6831:6831/udp -p 6832:6832/udp -p 5778:5778 -p 16686:16686 -p 14268:14268 jaegertracing/all-in-one:latest
   ```
         URL Jaeger http://localhost:16686/search
@@ -27,7 +27,7 @@ Como boas práticas DevOps
 Para uma próxima etapa ficaria automação dos builds com Jenkis
 
 
-========================================================================================================================
+============================================================================================
 
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
