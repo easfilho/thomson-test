@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,17 +21,21 @@ public class LogEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "url")
+    @Column(name = "url", length = 255)
+    @NotNull
     private String url;
 
     @Column(name = "date_visited")
+    @NotNull
     private LocalDateTime dateVisited;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", length = 36)
+    @NotNull
     private String userId;
 
-    @Column(name = "region")
+    @Column(name = "region", length = 20)
     @Enumerated(EnumType.STRING)
+    @NotNull
     private RegionEnum regionEnum;
 
     public Long getId() {

@@ -47,7 +47,7 @@ public class AccessResourceTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body("{" +
-                              "\"log\": \"/pets/exotic/cats/10 1587134941 5b019db5-b3d0-46d2-9963-437860af707f 1\"" +
+                              "\"log\": \"/pets/exotic/cats/10 1037825323957 5b019db5-b3d0-46d2-9963-437860af707f 1\"" +
                               "}"
                 )
                 .when()
@@ -56,7 +56,7 @@ public class AccessResourceTest {
                 .statusCode(201)
                 .body("id", CoreMatchers.is(greaterThan(0)))
                 .body("url", CoreMatchers.is("/pets/exotic/cats/10"))
-                .body("dataVisited", CoreMatchers.is("2020-04-17T11:49:01"))
+                .body("dateVisited", CoreMatchers.is("2002-11-20T18:48:43.957"))
                 .body("userId", CoreMatchers.is("5b019db5-b3d0-46d2-9963-437860af707f"))
                 .body("region", CoreMatchers.is("us-east-1"));
     }

@@ -2,7 +2,15 @@ package com.ilegra.resource;
 
 import com.ilegra.factory.LogFactory;
 import com.ilegra.resource.dto.LogInputDto;
+import com.ilegra.resource.dto.LogOutputDto;
 import com.ilegra.service.LogService;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+import org.eclipse.microprofile.openapi.annotations.tags.Tags;
 import org.eclipse.microprofile.opentracing.Traced;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +30,7 @@ import java.util.stream.Stream;
 @Path("/laar")
 @ApplicationScoped
 @Traced
+@Tags(value = @Tag(name = "Access"))
 public class AccessResource {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AccessResource.class);
@@ -38,6 +47,18 @@ public class AccessResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
+    @APIResponses(
+            value = {
+                    @APIResponse(
+                            responseCode = "400",
+                            description = "Invalid log parameter",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON)),
+                    @APIResponse(
+                            responseCode = "201",
+                            description = "Information about log saved with success",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON,
+                                    schema = @Schema(implementation = LogOutputDto.class))) })
+    @Operation(summary = "Receive a log and save his information in data base")
     public Response create(@Valid @NotNull(message = "Body can not be null") final LogInputDto logInputDto) {
         LOGGER.info("[ACCESS-LOG] Starting the save of log {}", logInputDto);
         return Stream.of(logInputDto)

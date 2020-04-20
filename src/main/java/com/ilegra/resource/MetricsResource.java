@@ -2,7 +2,15 @@ package com.ilegra.resource;
 
 import com.ilegra.enums.TemporalParameter;
 import com.ilegra.factory.MetricsAccessFactory;
+import com.ilegra.resource.dto.MetricsAccessDto;
 import com.ilegra.service.LogService;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+import org.eclipse.microprofile.openapi.annotations.tags.Tags;
 import org.eclipse.microprofile.opentracing.Traced;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +29,7 @@ import java.util.stream.Stream;
 @Path("/laa")
 @ApplicationScoped
 @Traced
+@Tags(value = @Tag(name = "Metrics"))
 public class MetricsResource {
 
     private final LogService logService;
@@ -35,6 +44,18 @@ public class MetricsResource {
     @GET
     @Path("/metrics")
     @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses(
+            value = {
+                    @APIResponse(
+                            responseCode = "400",
+                            description = "Invalid temporal grouper",
+                            content = @Content(mediaType = MediaType.TEXT_PLAIN)),
+                    @APIResponse(
+                            responseCode = "200",
+                            description = "Metrics about URLs accessed",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON,
+                                    schema = @Schema(implementation = MetricsAccessDto.class))) })
+    @Operation(summary = "Get Metrics about URLs accessed grouped by different visions")
     public Response getMetrics(@QueryParam("temporalGrouper") @Valid @NotNull(message = "Temporal grouper can not be null") TemporalParameter temporalParameter) {
         LOGGER.info("[METRICS] Starting collecting metrics about accessed URLs");
         return Stream.of(logService.getMetrics())

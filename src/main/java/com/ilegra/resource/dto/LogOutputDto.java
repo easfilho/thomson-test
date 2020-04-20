@@ -6,7 +6,7 @@ public class LogOutputDto {
 
     private Long id;
     private String url;
-    private LocalDateTime dataVisited;
+    private LocalDateTime dateVisited;
     private String userId;
     private String region;
 
@@ -28,12 +28,12 @@ public class LogOutputDto {
         return this;
     }
 
-    public LocalDateTime getDataVisited() {
-        return dataVisited;
+    public LocalDateTime getDateVisited() {
+        return dateVisited;
     }
 
-    public LogOutputDto setDataVisited(LocalDateTime dataVisited) {
-        this.dataVisited = dataVisited;
+    public LogOutputDto setDateVisited(LocalDateTime dateVisited) {
+        this.dateVisited = dateVisited;
         return this;
     }
 

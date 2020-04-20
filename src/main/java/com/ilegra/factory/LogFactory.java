@@ -28,7 +28,7 @@ public class LogFactory {
     }
 
     private LocalDateTime getDateVisited(String timestamp) {
-        return LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.parseLong(timestamp)),
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(timestamp)),
                                        TimeZone.getDefault().toZoneId());
     }
 
@@ -36,7 +36,7 @@ public class LogFactory {
         return new LogOutputDto()
                 .setId(logModel.getId())
                 .setUrl(logModel.getUrl())
-                .setDataVisited(logModel.getDateVisited())
+                .setDateVisited(logModel.getDateVisited())
                 .setUserId(logModel.getUserId())
                 .setRegion(logModel.getRegionEnum().getName());
     }
