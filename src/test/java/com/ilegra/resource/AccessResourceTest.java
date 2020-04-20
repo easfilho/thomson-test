@@ -29,7 +29,7 @@ public class AccessResourceTest {
 
     @Inject
     private LogRepository logRepository;
-    private static final String URL_SAVE_LOG = "/laar/ingest";
+    private static final String URL_SAVE_LOG = "v1/laar/ingest";
 
     @BeforeEach
     @Transactional

@@ -8,6 +8,8 @@ import com.ilegra.model.MetricUrlAroundWorldModel;
 import com.ilegra.model.MetricUrlPerRegionModel;
 import com.ilegra.model.MetricUrlPerTemporalParameterModel;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -24,6 +26,7 @@ public class LogRepository implements PanacheRepository<LogEntity> {
 
     private final EntityManager entityManager;
     private final LogFactory logFactory;
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogRepository.class);
 
     public LogRepository(EntityManager entityManager, LogFactory logFactory) {
         this.entityManager = entityManager;
@@ -32,6 +35,12 @@ public class LogRepository implements PanacheRepository<LogEntity> {
 
     public LogModel persist(LogModel logModel) {
         LogEntity entity = logFactory.createEntity(logModel);
+        try {
+            LOGGER.debug("[ACCESS-LOG-SAVE] Start persist LogEntity {}", entity);
+            persist(entity);
+        } catch (Exception e) {
+            LOGGER.error("[ACCESS-LOG-SAVE] Error on persist LogEntity: {} Error: {}", entity, e.getMessage());
+        }
         persist(entity);
         logModel.setId(entity.getId());
         return logModel;

@@ -48,7 +48,7 @@ class MetricsResourceTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .when()
                 .queryParam("temporalGrouper", "WEEK")
-                .get("/laa/metrics")
+                .get("v1/laa/metrics")
                 .then()
                 .statusCode(200)
                 .extract()

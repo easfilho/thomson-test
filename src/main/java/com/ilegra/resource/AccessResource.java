@@ -64,7 +64,7 @@ public class AccessResource {
                                     schema = @Schema(implementation = LogOutputDto.class))) })
     @Operation(summary = "Receive a log and save his information in data base")
     public Response create(@Valid @NotNull(message = "Body can not be null") final LogInputDto logInputDto) {
-        LOGGER.info("[ACCESS-LOG] Starting the save of log {}", logInputDto);
+        LOGGER.info("[ACCESS-LOG-SAVE] Starting the save of log {}", logInputDto);
         return Stream.of(logInputDto)
                 .map(LogInputDto::getLog)
                 .map(logService::save)

@@ -31,8 +31,7 @@ public class LogService {
 
     public LogModel save(String log) {
         LogModel logModel = logFactory.createModel(log);
-        logRepository.persist(logModel);
-        return logModel;
+        return logRepository.persist(logModel);
     }
 
     public MetricsAccessModel getMetrics() {
