@@ -4,6 +4,8 @@ import com.ilegra.factory.LogFactory;
 import com.ilegra.resource.dto.LogInputDto;
 import com.ilegra.resource.dto.LogOutputDto;
 import com.ilegra.service.LogService;
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -46,6 +48,8 @@ public class AccessResource {
     @Path("/ingest")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Timeout(300)
+    @CircuitBreaker(requestVolumeThreshold = 5, failureRatio = 0.1, delay = 1000)
     @Transactional
     @APIResponses(
             value = {

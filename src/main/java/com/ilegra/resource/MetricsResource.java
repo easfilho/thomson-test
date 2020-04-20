@@ -4,6 +4,8 @@ import com.ilegra.enums.TemporalParameter;
 import com.ilegra.factory.MetricsAccessFactory;
 import com.ilegra.resource.dto.MetricsAccessDto;
 import com.ilegra.service.LogService;
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -43,6 +45,8 @@ public class MetricsResource {
 
     @GET
     @Path("/metrics")
+    @Timeout(300)
+    @CircuitBreaker(requestVolumeThreshold = 5, failureRatio = 0.1, delay = 1000)
     @Produces(MediaType.APPLICATION_JSON)
     @APIResponses(
             value = {
