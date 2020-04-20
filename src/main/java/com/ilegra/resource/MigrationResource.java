@@ -15,7 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/flyway")
+@Path("/v1/flyway")
 @ApplicationScoped
 @Tags(value = @Tag(name = "Migration"))
 public class MigrationResource {

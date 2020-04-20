@@ -26,7 +26,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.stream.Stream;
 
-@Path("/laa")
+@Path("/v1/laa")
 @ApplicationScoped
 @Traced
 @Tags(value = @Tag(name = "Metrics"))
